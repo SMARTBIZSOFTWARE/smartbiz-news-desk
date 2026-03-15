@@ -1,0 +1,45 @@
+:root {
+  --bg: #080808;
+  --surface: #111114;
+  --surface2: #18181e;
+  --surface3: #202028;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0f0f4;
+  --text2: #8888a0;
+  --text3: #4a4a60;
+  --red: #e03030;
+  --red2: #ff5050;
+  --green: #22c55e;
+  --gold: #f59e0b;
+  --blue: #3b82f6;
+  --purple: #a855f7;
+  --r: 8px;
+  --r2: 14px;
+  --r3: 22px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body, #root {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
+
+.sinhala { font-family: 'Noto Sans Sinhala', sans-serif; }
+.mono    { font-family: 'JetBrains Mono', monospace; }
+
+/* Animations */
+@keyframes spin    { to { transform: rotate(360deg); } }
+@keyframes fadeUp  { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pulse   { 0%,100%{opacity:1} 50%{opacity:.4} }
+@keyframes pop     { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+@keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+@keyframes glow    { 0%,100%{box-shadow:0 0 8px rgba(224,48,48,0.4)} 50%{box-shadow:0 0 20px rgba(224,48,48,0.8)} }
