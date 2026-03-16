@@ -41,13 +41,21 @@ function addWatermark(imgUrl, callback) {
 }
 
 // ── Main component ────────────────────────────────────────────────────────
-export default function ImageGenerator({ prompt, headline }) {
-  const [status,   setStatus]   = useState('idle')  // idle | loading | done | error
+export default function ImageGenerator({ prompt, headline, autoGenerate = false }) {
+  const [status,   setStatus]   = useState('idle')
   const [imgUrl,   setImgUrl]   = useState(null)
   const [wmarkUrl, setWmarkUrl] = useState(null)
   const [errMsg,   setErrMsg]   = useState('')
   const [seed,     setSeed]     = useState(Math.floor(Math.random() * 9999))
-  const imgRef = useRef(null)
+  const imgRef  = useRef(null)
+  const autoRan = useRef(false)
+
+  useEffect(() => {
+    if (autoGenerate && prompt && !autoRan.current) {
+      autoRan.current = true
+      setTimeout(() => generate(), 600)
+    }
+  }, [prompt])
 
   // Build Pollinations URL
   function buildUrl(p, s) {
