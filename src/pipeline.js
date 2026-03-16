@@ -17,7 +17,7 @@ async function ai(prompt, temp = 0.7) {
       'X-Title':        'SmartBiz News Desk',
     },
     body: JSON.stringify({
-      model:       'openrouter/auto',
+      model: 'google/gemini-2.0-flash-exp:free',
       messages:    [{ role: 'user', content: prompt }],
       temperature: temp,
       max_tokens:  2048,
