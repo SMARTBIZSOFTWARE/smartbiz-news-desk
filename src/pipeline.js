@@ -4,6 +4,8 @@
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'
 
 // ── Core AI call ───────────────────────────────────────────────────────────
+const delay = (ms) => new Promise(r => setTimeout(r, ms))
+
 async function ai(prompt, temp = 0.7) {
   const key = import.meta.env.VITE_GEMINI_KEY
   if (!key) throw new Error('Gemini API key missing — add VITE_GEMINI_KEY to .env')
@@ -66,6 +68,7 @@ SOURCE: [publication name]
 SUMMARY: [Exactly 3 sentences: What happened. Why it matters. Key fact or number.]
 `, 0.4)
   tick(1, 'done', 'Story found ✓')
+  await delay(5000)
 
   // ── Agent 2: Fact Check ───────────────────────────────────────────────
   tick(2, 'run', 'Cross-checking facts...')
@@ -83,6 +86,7 @@ REASON: [one sentence why]
 Keep total response under 150 words.
 `, 0.2)
   tick(2, 'done', 'Facts verified ✓')
+  await delay(5000)
 
   // ── Agent 3: Trend Scorer ─────────────────────────────────────────────
   tick(3, 'run', 'Scoring viral potential...')
@@ -101,6 +105,7 @@ TIP: [one specific tip to maximize engagement]
   const sm       = traw.match(/SCORE:\s*(\d+)/i) || traw.match(/\b([0-9]|10)\b/)
   const virality = sm ? Math.min(10, Math.max(1, parseInt(sm[1]))) : 7
   tick(3, 'done', `Virality ${virality}/10 ✓`)
+  await delay(5000)
 
   // ── Agent 4: English Architect ────────────────────────────────────────
   tick(4, 'run', 'Writing English article...')
@@ -121,6 +126,7 @@ STRUCTURE (follow exactly):
 STYLE: Clear, energetic, no fluff. Every sentence must add value.
 `, 0.6)
   tick(4, 'done', 'English article ready ✓')
+  await delay(5000)
 
   // ── Agent 5: Sinhala Specialist ───────────────────────────────────────
   tick(5, 'run', 'Translating to Sinhala...')
@@ -144,6 +150,7 @@ ${eng}
 සිංහල පරිවර්තනය (සිංහල script ONLY):
 `, 0.3)
   tick(5, 'done', 'Translated ✓')
+  await delay(5000)
 
   // ── Agent 6: Creative Wordsmith ───────────────────────────────────────
   tick(6, 'run', 'Enhancing Sinhala style...')
@@ -171,6 +178,7 @@ ${si_raw}
 නැවත ලිව් ලිපිය:
 `, 0.75)
   tick(6, 'done', 'Style enhanced ✓')
+  await delay(5000)
 
   // ── Agent 7: SEO + Headlines ──────────────────────────────────────────
   tick(7, 'run', 'Creating SEO & headlines...')
@@ -217,6 +225,7 @@ ${si_creative}
   const best     = bestM?.[1]?.trim() || si_creative.split('\n')[0]
   const bestEn   = enM?.[1]?.trim()   || ''
   tick(7, 'done', 'SEO ready ✓')
+  await delay(5000)
 
   // ── Agent 8: Image Conceptor ──────────────────────────────────────────
   tick(8, 'run', 'Crafting image prompt...')
@@ -238,6 +247,7 @@ Requirements:
 - Dramatic and visually striking
 `, 0.85)
   tick(8, 'done', 'Image prompt ready ✓')
+  await delay(5000)
 
   // ── Agent 9: Policy Guard ─────────────────────────────────────────────
   tick(9, 'run', 'Policy & safety check...')
@@ -262,6 +272,7 @@ FLAGGED: [specific reason]
 
   const approved = !policy.toUpperCase().includes('FLAGGED')
   tick(9, 'done', approved ? 'Approved ✓' : 'Flagged ⚠️')
+  await delay(5000)
 
   // ── Agent 10: Social Media Handler ───────────────────────────────────
   tick(10, 'run', 'Writing social posts...')
@@ -284,6 +295,7 @@ PUSH:
   const wa = extract(social, 'WHATSAPP', 'PUSH')     || best
   const pu = extract(social, 'PUSH')                  || best
   tick(10, 'done', 'Social posts ready ✓')
+  await delay(5000)
 
   // ── Agent 11: Grammar Pro ─────────────────────────────────────────────
   tick(11, 'run', 'Final grammar check...')
@@ -306,6 +318,7 @@ IMPORTANT: නිවැරදි කළ ලිපිය ONLY return කරන්
 ${art}
 `, 0.1)
   tick(11, 'done', 'Grammar perfect ✓')
+  await delay(5000)
 
   // ── Agent 12: Dispatcher ──────────────────────────────────────────────
   tick(12, 'run', 'Packaging for Supabase...')
@@ -328,5 +341,6 @@ ${art}
   }
 
   tick(12, 'done', 'Saved to Supabase ✓')
+  await delay(5000)
   return payload
 }
