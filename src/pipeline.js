@@ -1,7 +1,7 @@
 // SmartBiz News Desk — AI Pipeline v4
 // 12 Agents | Gemini 1.5 Flash | Sinhala ✓ | No Backend
 
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'
 
 // ── Core AI call ───────────────────────────────────────────────────────────
 async function ai(prompt, temp = 0.7) {
